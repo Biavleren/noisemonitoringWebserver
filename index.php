@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 // Insert data into database
-$sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, hoursLeft) VALUES (1, 4, 6.3)";
+$sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, timeLeft) VALUES (1, 4, 6.3)";
 
 if ($conn->query($sql_quiry) == TRUE) {
     echo "New record created succesfully";
