@@ -4,6 +4,8 @@ $username = "superuser";
 $password = "Password123";
 $dbname = "noise_monitoring";
 
+echo "Hello from PHP script";
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
