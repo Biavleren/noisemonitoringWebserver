@@ -1,4 +1,14 @@
 <?php
+$servername = "mysqlms.mysql.database.azure.com";
+$username = "superuser";
+$password = "Password123";
 
-echo "Hello Villy Wonka!";
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
 ?>
