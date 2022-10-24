@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'noisemonitoring'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C0F36D327663419694393B31A0A12963 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0844F43ACF4408B9C27AC603A9D0E01 }}
           package: .
