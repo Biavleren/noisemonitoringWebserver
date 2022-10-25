@@ -22,7 +22,7 @@ if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {
     }
 
     // creating query
-    $sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, timeLeft) VALUES (1, 4, 6.3)";
+    $sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, timeLeft) VALUES ($measurementUnit_id, $acousticShocks, $timeLeft)";
 
     // upload successful?
     if ($conn->query($sql_quiry) == TRUE) {
@@ -33,8 +33,8 @@ if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {
 
     // break connection
     $conn->close();
+} else {
+    echo "No data has been sent...";
 }
-
-echo "No data has been sent..."
 
 ?>
