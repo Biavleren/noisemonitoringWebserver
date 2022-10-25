@@ -1,28 +1,38 @@
 <?php
+// database constants
 $servername = "mysqlms.mysql.database.azure.com";
 $username = "superuser";
 $password = "Password123";
 $dbname = "noise_monitoring";
 
-echo "Hello from PHP script";
+// collects variables sent from http request
+$measurementUnit_id = $_GET["measurementUnit_id"];
+$acousticShocks = $_GET["acousticShocks"];
+$timeLeft = $_GET["timeLeft"];
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// if not null
+if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // creating query
+    $sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, timeLeft) VALUES (1, 4, 6.3)";
+
+    // upload successful?
+    if ($conn->query($sql_quiry) == TRUE) {
+        echo "New measurement inserted succesfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    // break connection
+    $conn->close();
 }
 
-// Insert data into database
-$sql_quiry = "INSERT INTO measurements (measurementUnit_id, acousticShocks, timeLeft) VALUES (1, 4, 6.3)";
-
-if ($conn->query($sql_quiry) == TRUE) {
-    echo "New record created succesfully";
-}
-else
-{
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$conn->close();
 ?>
