@@ -35,4 +35,6 @@ if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {
     $conn->close();
 }
 
+echo "No data has been sent..."
+
 ?>
