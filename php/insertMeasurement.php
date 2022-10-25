@@ -34,7 +34,7 @@ if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {
     // break connection
     $conn->close();
 } else {
-    echo "No data has been sent...";
+    echo "No or missing data has been sent...";
 }
 
 ?>
