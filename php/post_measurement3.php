@@ -6,9 +6,9 @@ $password = "Password123";
 $dbname = "noise_monitoring";
 
 // collects variables sent from http request
-$measurementUnit_id = $_GET["measurementUnit_id"];
-$acousticShocks = $_GET["acousticShocks"];
-$timeLeft = $_GET["timeLeft"];
+$measurementUnit_id = $_POST["measurementUnit_id"];
+$acousticShocks = $_POST["acousticShocks"];
+$timeLeft = $_POST["timeLeft"];
 
 // if not null
 if (isset($measurementUnit_id, $acousticShocks, $timeLeft)) {

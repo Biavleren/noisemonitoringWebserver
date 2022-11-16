@@ -6,9 +6,9 @@ $password = "Password123";
 $dbname = "noise_monitoring";
 
 // collects variables sent from http request
-$measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
-$acousticShocks = $_POST["acousticShocks"];
-$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
+$measurementUnit_serialNum = 3;
+$acousticShocks = 2;
+$spl_array = array(75.8, 80.1, 79.7); // PHP automatically detects as array
 
 // if not null, proceed
 if (isset($measurementUnit_id, $acousticShocks, $spl_array)) {
