@@ -11,7 +11,7 @@ $acousticShocks = 2;
 $spl_array = array(75.8, 80.1, 79.7); // PHP automatically detects as array
 
 // if not null, proceed
-if (isset($measurementUnit_id, $acousticShocks, $spl_array)) {
+if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
