@@ -11,7 +11,7 @@ $acousticShocks = $_POST["acousticShocks"];
 $spl_array = $_POST["spl_array"]; // PHP automatically detects as array
 
 // if not null, proceed
-if (isset($measurementUnit_id, $acousticShocks, $spl_array)) {
+if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -57,7 +57,7 @@ if (isset($measurementUnit_id, $acousticShocks, $spl_array)) {
     //         $acousticShocks)";
 
     // error checking
-    if ($conn->query($sql_quiry) == TRUE) {
+    if ($conn->query($sql_query) == TRUE) {
         echo "New measurement record inserted succesfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

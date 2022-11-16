@@ -57,7 +57,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     //         $acousticShocks)";
 
     // error checking
-    if ($conn->query($sql_quiry) == TRUE) {
+    if ($conn->query($sql_query) == TRUE) {
         echo "New measurement record inserted succesfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
