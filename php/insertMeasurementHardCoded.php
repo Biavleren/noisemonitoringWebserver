@@ -13,6 +13,7 @@ $spl_array = array(75.8, 80.1, 79.7); // PHP automatically detects as array
 // if not null, proceed
 if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
+    echo "We have entered the if-statement";
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -65,7 +66,8 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
     // break connection
     $conn->close();
-} else {
+}
+else {
     echo "No data has been sent...";
 }
 
