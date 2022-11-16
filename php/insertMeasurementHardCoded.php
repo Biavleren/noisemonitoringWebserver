@@ -23,20 +23,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     }
 
 
-    $sql_query = "INSERT INTO soundPressureLevelRaw
-        (spl0, spl1, spl2)
-        VALUES
-            ($spl_array[0],
-            $spl_array[1],
-            $spl_array[2]);
-
-        INSERT INTO measurements
-        (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)
-        VALUES
-            ($measurementUnit_serialNum,
-            LAST_INSERT_ID(),
-            (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),
-            $acousticShocks)";
+    $sql_query = "INSERT INTO soundPressureLevelRaw (spl0, spl1, spl2) VALUES ($spl_array[0], $spl_array[1], $spl_array[2]); INSERT INTO measurements (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks) VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(), (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks)";
 
     // First, insert spl_array
     //$sql_quiry1 = "INSERT INTO soundPressureLevelRaw (spl0, spl1, spl2) VALUES ($spl_array[0], $spl_array[1], $spl_array[2])";
