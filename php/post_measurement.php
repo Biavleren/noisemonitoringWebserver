@@ -10,6 +10,13 @@ $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
 $acousticShocks = $_POST["acousticShocks"];
 $spl_array = $_POST["spl_array"]; // PHP automatically detects as array
 
+
+echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
+echo "acousticShocks: ".$acousticShocks;
+echo "spl_array[0]: ".$spl_array[0];
+echo "spl_array[1]: ".$spl_array[1];
+echo "spl_array[2]: ".$spl_array[2];
+
 // if not null, proceed
 if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
@@ -21,51 +28,26 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // sql query
+    $sql_query = "INSERT INTO soundPressureLevelRaw";
+    $sql_query .= " (spl0, spl1, spl2)";
+    $sql_query .= " VALUES ($spl_array[0], $spl_array[1], $spl_array[2]);";
+    $sql_query .= " INSERT INTO measurements";
+    $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
+    $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
+    $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
 
-    $sql_query = "INSERT INTO soundPressureLevelRaw
-        (spl0, spl1, spl2)
-        VALUES
-            ($spl_array[0],
-            $spl_array[1],
-            $spl_array[2]);
-
-        INSERT INTO measurements
-        (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)
-        VALUES
-            ($measurementUnit_serialNum,
-            LAST_INSERT_ID(),
-            (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),
-            $acousticShocks)";
-
-    // First, insert spl_array
-    //$sql_quiry1 = "INSERT INTO soundPressureLevelRaw (spl0, spl1, spl2) VALUES ($spl_array[0], $spl_array[1], $spl_array[2])";
-
-    // error checking
-    // if ($conn->query($sql_quiry1) == TRUE) {
-    //     echo "New spl record inserted succesfully";
-    // } else {
-    //     echo "Error: " . $sql . "<br>" . $conn->error;
-    // }
-
-    // Second, insert measurement
-    // $sql_quiry2 = "INSERT INTO measurements
-    //     (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)
-    //     VALUES
-    //         ($measurementUnit_serialNum,
-    //         LAST_INSERT_ID(),
-    //         (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),
-    //         $acousticShocks)";
-
-    // error checking
-    if ($conn->query($sql_query) == TRUE) {
-        echo "New measurement record inserted succesfully";
+    // check for success
+    if ($conn->multi_query($sql_query) == TRUE) {
+        echo "New record inserted succesfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
     // break connection
     $conn->close();
-} else {
+}
+else {
     echo "No data has been sent...";
 }
 
