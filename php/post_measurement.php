@@ -67,7 +67,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
+/*
     // sql query
     $sql_query = "INSERT INTO soundPressureLevelRaw";
     $sql_query .= " (spl0, spl1, spl2)";
@@ -80,19 +80,15 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
         echo "New record inserted succesfully";
-        http_response_code(202);
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-
+*/
     // break connection
     $conn->close();
-    exit;
 }
 else {
     echo "No data has been sent...";
-    http_response_code(406);
-    exit;
 }
 
 ?>
