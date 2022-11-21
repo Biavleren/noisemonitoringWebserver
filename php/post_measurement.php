@@ -6,18 +6,27 @@ $password = "Password123";
 $dbname = "noise_monitoring";
 
 // collects variables sent from http request
-$measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
-$acousticShocks = $_POST["acousticShocks"];
-$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
+//$measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
+//$acousticShocks = $_POST["acousticShocks"];
+//$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
 
-// for reading json objects
-$_POST = json_decode(file_get_contents('php://input'), true);
+// Takes raw data from the request
+$json = file_get_contents('php://input');
 
-echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
-echo "acousticShocks: ".$acousticShocks;
-echo "spl_array[0]: ".$spl_array[0];
-echo "spl_array[1]: ".$spl_array[1];
-echo "spl_array[2]: ".$spl_array[2];
+// Converts it into a PHP pbject
+$data = json_decode($json);
+
+echo "measurementUnit_serialNum: ".$data[0];
+echo "acousticShocks: ".$data[1];
+echo "spl_array[0]: ".$data[2][0];
+echo "spl_array[1]: ".$data[2][1];
+echo "spl_array[2]: ".$data[2][2];
+
+// echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
+// echo "acousticShocks: ".$acousticShocks;
+// echo "spl_array[0]: ".$spl_array[0];
+// echo "spl_array[1]: ".$spl_array[1];
+// echo "spl_array[2]: ".$spl_array[2];
 
 // if not null, proceed
 if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
