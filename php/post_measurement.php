@@ -51,6 +51,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
         echo "New record inserted succesfully";
+        http_response_code(202);
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -60,6 +61,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 }
 else {
     echo "No data has been sent...";
+    http_response_code(406);
 }
 
 ?>
