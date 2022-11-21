@@ -16,11 +16,11 @@ $json = file_get_contents('php://input');
 // Converts it into a PHP pbject
 $data = json_decode($json);
 
-echo "measurementUnit_serialNum: ".$data[0];
-echo "acousticShocks: ".$data[1];
-echo "spl_array[0]: ".$data[2][0];
-echo "spl_array[1]: ".$data[2][1];
-echo "spl_array[2]: ".$data[2][2];
+echo "measurementUnit_serialNum: ".$data->measurementUnit_serialNum;
+echo "acousticShocks: ".$data->acousticShocks;
+echo "spl_array[0]: ".$data->spl_array[0];
+echo "spl_array[1]: ".$data->spl_array[1];
+echo "spl_array[2]: ".$data->spl_array[2];
 
 // echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 // echo "acousticShocks: ".$acousticShocks;
