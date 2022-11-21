@@ -58,10 +58,12 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
 
     // break connection
     $conn->close();
+    exit;
 }
 else {
     echo "No data has been sent...";
     http_response_code(406);
+    exit;
 }
 
 ?>
