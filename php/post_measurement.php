@@ -5,6 +5,9 @@ $username = "superuser";
 $password = "Password123";
 $dbname = "noise_monitoring";
 
+// for reading json objects
+$_POST = json_decode(file_get_contents('php://input'), true);
+
 // collects variables sent from http request
 $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
 $acousticShocks = $_POST["acousticShocks"];
