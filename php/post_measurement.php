@@ -6,34 +6,10 @@ $password = "Password123";
 $dbname = "noise_monitoring";
 
 // collects variables sent from http request
-//$measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
-//$acousticShocks = $_POST["acousticShocks"];
-//$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
+$measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
+$acousticShocks = $_POST["acousticShocks"];
+$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
 
-// Only allow POST requests
-if (strtoupper($_SERVER['REQUEST_METHOD']) != 'POST') {
-    throw new Exception('Only POST requests are allowed');
-  }
-
-// Make sure Content-Type is application/json 
-$content_type = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
-if (stripos($content_type, 'application/json') === false) {
-  throw new Exception('Content-Type must be application/json');
-}
-
-// Read the input stream
-$body = file_get_contents("php://input");
- 
-// Decode the JSON object
-$object = json_decode($body, true);
-
-// Throw an exception if decoding failed
-if (!is_array($object)) {
-    throw new Exception('Failed to decode JSON object');
-}
-
-// Display the object
-print_r($object);
 
 /*
 
@@ -51,11 +27,11 @@ echo "spl_array[2]: " . $data->spl_array[2];
 
 */
 
-// echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
-// echo "acousticShocks: ".$acousticShocks;
-// echo "spl_array[0]: ".$spl_array[0];
-// echo "spl_array[1]: ".$spl_array[1];
-// echo "spl_array[2]: ".$spl_array[2];
+echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
+echo "acousticShocks: ".$acousticShocks;
+echo "spl_array[0]: ".$spl_array[0];
+echo "spl_array[1]: ".$spl_array[1];
+echo "spl_array[2]: ".$spl_array[2];
 
 // if not null, proceed
 if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
@@ -67,7 +43,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-/*
+
     // sql query
     $sql_query = "INSERT INTO soundPressureLevelRaw";
     $sql_query .= " (spl0, spl1, spl2)";
@@ -83,7 +59,7 @@ if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-*/
+
     // break connection
     $conn->close();
 }
