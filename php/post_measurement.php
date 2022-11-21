@@ -14,9 +14,9 @@ $dbname = "noise_monitoring";
 $json = file_get_contents('php://input');
 
 // Converts it into a PHP pbject
-$data = json_decode($json);
+$data = json_decode($json, true);
 
-echo "measurementUnit_serialNum: ".$data->measurementUnit_serialNum;
+echo "measurementUnit_serialNum: ".$data['measurementUnit_serialNum'];
 echo "acousticShocks: ".$data->acousticShocks;
 echo "spl_array[0]: ".$data->spl_array[0];
 echo "spl_array[1]: ".$data->spl_array[1];
