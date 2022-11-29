@@ -21,7 +21,7 @@ echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "\nacousticShocks: ".$acousticShocks;
 echo "\nspl_length: ".$spl_length;
 for ($j = 0; $j < $spl_length; $j++) {
-    echo "\n\tspl_array[$j]: ".$spl_array[$j];
+    echo "\n \tspl_array[$j]: ".$spl_array[$j];
   }
 
 // if not null, proceed
@@ -70,7 +70,7 @@ if (isset($measurementUnit_serialNum)) {
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
-        echo "New record inserted succesfully";
+        echo "\nNew record inserted succesfully";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -79,7 +79,7 @@ if (isset($measurementUnit_serialNum)) {
     $conn->close();
 }
 else {
-    echo "No data has been sent...";
+    echo "\nNo data has been sent...";
 }
 
 ?>
