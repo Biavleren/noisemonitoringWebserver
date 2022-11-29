@@ -5,13 +5,15 @@ $username = "superuser";
 $password = "Password123";
 $dbname = "noise_monitoring";
 
-// collects variables sent from http request
+// collects base data into variables sent from http POST-request
 $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
 $acousticShocks = isset($_POST["acousticShocks"]) ? $_POST["acousticShocks"] : 0;
 $spl_length = isset($_POST["spl_length"]) ? $_POST["spl_length"] : 0;
 
+// declaring array
 $spl_array = array();
 
+// looping through the size of SPL
 for ($c = 0; $c < $spl_length; $c++)
 {
     array_push($spl_array, $_POST["spl_array$c"]);
@@ -35,17 +37,7 @@ if (isset($measurementUnit_serialNum)) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // sql query
-    /*
-    $sql_query = "INSERT INTO soundPressureLevelRaw";
-    $sql_query .= " (spl0, spl1, spl2)";
-    $sql_query .= " VALUES ($spl_array[0], $spl_array[1], $spl_array[2]);";
-    $sql_query .= " INSERT INTO measurements";
-    $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
-    $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
-    $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
-    */
-
+    // Building SQL query
     $sql_query = "INSERT INTO soundPressureLevelRaw (";
     for ($x = 0; $x < $spl_length; $x++) {
         $sql_query .= "spl$x";
@@ -81,5 +73,4 @@ if (isset($measurementUnit_serialNum)) {
 else {
     echo "\nNo data has been sent...";
 }
-
 ?>
