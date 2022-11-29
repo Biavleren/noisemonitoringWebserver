@@ -29,10 +29,10 @@ for ($c = 0; $c < $spl_length; $c++)
 // $spl_array9 = $_POST["spl_array9"];
 
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
-echo "  acousticShocks: ".$acousticShocks;
-echo "  spl_length: ".$spl_length;
+echo "\nacousticShocks: ".$acousticShocks;
+echo "\nspl_length: ".$spl_length;
 for ($j = 0; $j < $spl_length; $j++) {
-    echo "  spl_array[$j]: ".$spl_array[$j];
+    echo "\nspl_array[$j]: ".$spl_array[$j];
   }
 
 // if not null, proceed
