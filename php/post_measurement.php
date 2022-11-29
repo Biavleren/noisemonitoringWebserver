@@ -7,8 +7,8 @@ $dbname = "noise_monitoring";
 
 // collects variables sent from http request
 $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
-$acousticShocks = $_POST["acousticShocks"] ? ["acousticShocks"] : 0;
-$spl_length = $_POST["spl_length"] ? $_POST["spl_length"] : 0;
+$acousticShocks = isset($_POST["acousticShocks"]) ? $_POST["acousticShocks"] : 0;
+$spl_length = isset($_POST["spl_length"]) ? $_POST["spl_length"] : 0;
 
 $spl_array0 = $_POST["spl_array0"];
 $spl_array1 = $_POST["spl_array1"];
