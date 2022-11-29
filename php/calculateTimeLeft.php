@@ -5,6 +5,12 @@ $username = "superuser";
 $password = "Password123";
 $dbname = "noise_monitoring";
 
+// while (timeleft == NULL)
+
+// 
+
+
+
 
 // vi har brug for:
     // soundPressureLevelRaw_id for alle records i measurements, der er NULL.

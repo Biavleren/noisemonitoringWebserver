@@ -8,24 +8,9 @@ $dbname = "noise_monitoring";
 // collects variables sent from http request
 $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
 $acousticShocks = $_POST["acousticShocks"];
-$spl_array = $_POST["spl_array"]; // PHP automatically detects as array
-
-
-/*
-
-// Takes raw data from the request
-$json = file_get_contents('php://input');
-
-// Converts it into a PHP pbject
-$data = json_decode($json, true);
-
-echo "measurementUnit_serialNum: " . $data['measurementUnit_serialNum'];
-echo "acousticShocks: " . $data->acousticShocks;
-echo "spl_array[0]: " . $data->spl_array[0];
-echo "spl_array[1]: " . $data->spl_array[1];
-echo "spl_array[2]: " . $data->spl_array[2];
-
-*/
+$spl_array0 = $_POST["spl_array0"]; // PHP automatically detects as array
+$spl_array1 = $_POST["spl_array1"];
+$spl_array2 = $_POST["spl_array2"];
 
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "acousticShocks: ".$acousticShocks;
