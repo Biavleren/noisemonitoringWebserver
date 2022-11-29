@@ -14,9 +14,9 @@ $spl_array2 = $_POST["spl_array2"];
 
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "acousticShocks: ".$acousticShocks;
-echo "spl_array[0]: ".$spl_array[0];
-echo "spl_array[1]: ".$spl_array[1];
-echo "spl_array[2]: ".$spl_array[2];
+echo "spl_array[0]: ".$spl_array0;
+echo "spl_array[1]: ".$spl_array1;
+echo "spl_array[2]: ".$spl_array2;
 
 // if not null, proceed
 if (isset($measurementUnit_serialNum, $acousticShocks, $spl_array)) {
