@@ -17,22 +17,11 @@ for ($c = 0; $c < $spl_length; $c++)
     array_push($spl_array, $_POST["spl_array$c"]);
 }
 
-// $spl_array0 = $_POST["spl_array0"];
-// $spl_array1 = $_POST["spl_array1"];
-// $spl_array2 = $_POST["spl_array2"];
-// $spl_array3 = $_POST["spl_array3"];
-// $spl_array4 = $_POST["spl_array4"];
-// $spl_array5 = $_POST["spl_array5"];
-// $spl_array6 = $_POST["spl_array6"];
-// $spl_array7 = $_POST["spl_array7"];
-// $spl_array8 = $_POST["spl_array8"];
-// $spl_array9 = $_POST["spl_array9"];
-
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "\nacousticShocks: ".$acousticShocks;
 echo "\nspl_length: ".$spl_length;
 for ($j = 0; $j < $spl_length; $j++) {
-    echo "\nspl_array[$j]: ".$spl_array[$j];
+    echo "\n    spl_array[$j]: ".$spl_array[$j];
   }
 
 // if not null, proceed
@@ -67,7 +56,7 @@ if (isset($measurementUnit_serialNum)) {
     }
     $sql_query .= ") VALUES (";
     for ($y = 0; $y < $spl_length; $y++) {
-        $sql_query .= "$spl_array$y";
+        $sql_query .= "$spl_array[$y]";
         if (($spl_length-$y) > 1)
         {
             $sql_query .= ", ";
@@ -80,7 +69,7 @@ if (isset($measurementUnit_serialNum)) {
     $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
 
 
-
+    echo $sql_query;
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
