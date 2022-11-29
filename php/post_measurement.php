@@ -21,7 +21,7 @@ echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "\nacousticShocks: ".$acousticShocks;
 echo "\nspl_length: ".$spl_length;
 for ($j = 0; $j < $spl_length; $j++) {
-    echo "\n    spl_array[$j]: ".$spl_array[$j];
+    echo "\n\tspl_array[$j]: ".$spl_array[$j];
   }
 
 // if not null, proceed
@@ -67,9 +67,6 @@ if (isset($measurementUnit_serialNum)) {
     $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
     $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
     $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
-
-
-    echo $sql_query;
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
