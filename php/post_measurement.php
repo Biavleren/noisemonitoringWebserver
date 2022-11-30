@@ -8,26 +8,57 @@ $dbname = "noise_monitoring";
 // collects base data into variables sent from http POST-request
 $measurementUnit_serialNum = $_POST["measurementUnit_serialNum"];
 $acousticShocks = isset($_POST["acousticShocks"]) ? $_POST["acousticShocks"] : 0;
+$dosisLoss = isset($_POST["dosisLoss"]) ? $_POST["dosisLoss"] : 0;
 $spl_length = isset($_POST["spl_length"]) ? $_POST["spl_length"] : 0;
 
 // declaring array
 $spl_array = array();
 
 // looping through the size of SPL
-for ($c = 0; $c < $spl_length; $c++)
+for ($c = 0; $c < $spl_length; $c++) 
 {
     array_push($spl_array, $_POST["spl_array$c"]);
 }
 
+// ****************** dosis calculation SPL time interval
+
+// Get some value from db;
+// $dosis = getDosisDB(); // get current dosis from DB
+// *********************
+
+// $splTimeInterval = 0.125; //tiem inteva for each spl value
+// $aCoef = 2705659852;
+// $bCoef = -0.231;
+// $sum = 0;
+
+// $dosisLoss = 0;
+// $exposureTime = 0;
+// for ($c = 0; $c < $spl_length; $c++) 
+// {
+//     $exposureTime += ($aCoef * exp($bCoef * ($spl_array[$c])));
+//     $dosisLoss = $splTimeInterval / $exposureTime;
+//     $dosis += (-$dosisLoss);
+//     $hoursLeftAtCurentSPL += $exposureTime * $_dosis;
+// }
+
+// $hoursLeftAtCurentSPL = $hoursLeftAtCurentSPL/$spl_length;
+
+
+//** 
+// push(dosis)
+// push(hoursLeftAtCurentSPL)
+//*
+
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "\nacousticShocks: ".$acousticShocks;
+echo "\ndosisLoss: ".$dosisLoss;
 echo "\nspl_length: ".$spl_length;
 for ($j = 0; $j < $spl_length; $j++) {
     echo "\n \tspl_array[$j]: ".$spl_array[$j];
   }
 
 // if not null, proceed
-if (isset($measurementUnit_serialNum)) {
+if (isset($measurementUnit_serialNum) && 1 > 2) {
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
