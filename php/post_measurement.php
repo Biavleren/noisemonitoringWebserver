@@ -104,8 +104,25 @@ if (isset($measurementUnit_serialNum)) {
     $sql_query .= " SELECT $measurementUnit_serialNum, LAST_INSERT_ID(),";
     $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),";
     $sql_query .= " $acousticShocks,";
-    $sql_query .= " ((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss)"; //calculation of current_dosis
+    $sql_query .= " ((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss),"; //calculation of current_dosis
     $sql_query .= " (((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss)*($spl_slow_setting*$spl_length/$dosisLoss));"; //calculation of estimated hoursleft
+
+/*
+INSERT INTO noise_monitoring.measurements (
+measurementUnit_serialNum,
+soundPressureLevelRaw_id,
+employee_id,
+acousticShocks,
+current_dosis,
+estimated_hoursleft)
+SELECT
+1,
+LAST_INSERT_ID(),
+(SELECT employee_id FROM noise_monitoring.measurementUnit_users WHERE measurementUnit_serialNum = 1),
+2,
+((SELECT current_dosis FROM noise_monitoring.measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-0.5),
+(((SELECT current_dosis FROM noise_monitoring.measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-0.5)*(1*4/0.5));
+*/
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
