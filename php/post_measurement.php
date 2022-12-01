@@ -11,6 +11,9 @@ $acousticShocks = isset($_POST["acousticShocks"]) ? $_POST["acousticShocks"] : 0
 $dosisLoss = isset($_POST["dosisLoss"]) ? $_POST["dosisLoss"] : 0;
 $spl_length = isset($_POST["spl_length"]) ? $_POST["spl_length"] : 0;
 
+//contstants
+$spl_slow_setting = 1; // slow mode
+
 // declaring array
 $spl_array = array();
 
@@ -58,7 +61,7 @@ for ($j = 0; $j < $spl_length; $j++) {
   }
 
 // if not null, proceed
-if (isset($measurementUnit_serialNum) && 1 > 2) {
+if (isset($measurementUnit_serialNum)) {
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -68,8 +71,9 @@ if (isset($measurementUnit_serialNum) && 1 > 2) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Building SQL query
-    $sql_query = "INSERT INTO soundPressureLevelRaw (";
+    
+    // Building SQL query for soundPressureLevelRaw table
+    $sql_query = "INSERT INTO soundPressureLevelRaw (spl_length, ";
     for ($x = 0; $x < $spl_length; $x++) {
         $sql_query .= "spl$x";
         if (($spl_length-$x) > 1)
@@ -77,7 +81,7 @@ if (isset($measurementUnit_serialNum) && 1 > 2) {
             $sql_query .= ", ";
         }
     }
-    $sql_query .= ") VALUES (";
+    $sql_query .= ") VALUES ($spl_length, ";
     for ($y = 0; $y < $spl_length; $y++) {
         $sql_query .= "$spl_array[$y]";
         if (($spl_length-$y) > 1)
@@ -86,10 +90,22 @@ if (isset($measurementUnit_serialNum) && 1 > 2) {
         }
     }
     $sql_query .= ");";
+
+    // OLD Building SQL query for measurements table
+    // $sql_query .= " INSERT INTO measurements";
+    // $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
+    // $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
+    // $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
+
+
+    //Building SQL query for measurements table:
     $sql_query .= " INSERT INTO measurements";
-    $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
-    $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
-    $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
+    $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks, current_dosis, estimated_hoursleft)";
+    $sql_query .= " SELECT $measurementUnit_serialNum, LAST_INSERT_ID(),";
+    $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),";
+    $sql_query .= " $acousticShocks,";
+    $sql_query .= " ((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss)"; //calculation of current_dosis
+    $sql_query .= " (((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss)*($spl_slow_setting*$spl_length/$dosisLoss));"; //calculation of estimated hoursleft
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
