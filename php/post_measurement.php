@@ -70,7 +70,8 @@ if (isset($measurementUnit_serialNum)) {
     $sql_query .= " acousticShocks,";
     $sql_query .= " current_dosis,";
     $sql_query .= " estimated_hoursleft)";
-    $sql_query .= " SELECT $measurementUnit_serialNum, LAST_INSERT_ID(),";
+    $sql_query .= " SELECT $measurementUnit_serialNum,";
+    $sql_query .= " LAST_INSERT_ID(),";
     $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),";
     $sql_query .= " $acousticShocks,";
     $sql_query .= " ((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss),"; //calculation of current_dosis
@@ -87,6 +88,6 @@ if (isset($measurementUnit_serialNum)) {
     $conn->close();
 }
 else {
-    echo "\nNo data has been sent...";
+    echo "\nRequest invalid - no data has been inserted...";
 }
 ?>
