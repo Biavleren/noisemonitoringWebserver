@@ -23,35 +23,6 @@ for ($c = 0; $c < $spl_length; $c++)
     array_push($spl_array, $_POST["spl_array$c"]);
 }
 
-// ****************** dosis calculation SPL time interval
-
-// Get some value from db;
-// $dosis = getDosisDB(); // get current dosis from DB
-// *********************
-
-// $splTimeInterval = 0.125; //tiem inteva for each spl value
-// $aCoef = 2705659852;
-// $bCoef = -0.231;
-// $sum = 0;
-
-// $dosisLoss = 0;
-// $exposureTime = 0;
-// for ($c = 0; $c < $spl_length; $c++) 
-// {
-//     $exposureTime += ($aCoef * exp($bCoef * ($spl_array[$c])));
-//     $dosisLoss = $splTimeInterval / $exposureTime;
-//     $dosis += (-$dosisLoss);
-//     $hoursLeftAtCurentSPL += $exposureTime * $_dosis;
-// }
-
-// $hoursLeftAtCurentSPL = $hoursLeftAtCurentSPL/$spl_length;
-
-
-//** 
-// push(dosis)
-// push(hoursLeftAtCurentSPL)
-//*
-
 echo "measurementUnit_serialNum: ".$measurementUnit_serialNum;
 echo "\nacousticShocks: ".$acousticShocks;
 echo "\ndosisLoss: ".$dosisLoss;
@@ -91,38 +62,19 @@ if (isset($measurementUnit_serialNum)) {
     }
     $sql_query .= ");";
 
-    // OLD Building SQL query for measurements table
-    // $sql_query .= " INSERT INTO measurements";
-    // $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks)";
-    // $sql_query .= " VALUES ($measurementUnit_serialNum, LAST_INSERT_ID(),";
-    // $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum), $acousticShocks);";
-
-
     //Building SQL query for measurements table:
     $sql_query .= " INSERT INTO measurements";
-    $sql_query .= " (measurementUnit_serialNum, soundPressureLevelRaw_id, employee_id, acousticShocks, current_dosis, estimated_hoursleft)";
+    $sql_query .= " (measurementUnit_serialNum,";
+    $sql_query .= " soundPressureLevelRaw_id,";
+    $sql_query .= " employee_id,";
+    $sql_query .= " acousticShocks,";
+    $sql_query .= " current_dosis,";
+    $sql_query .= " estimated_hoursleft)";
     $sql_query .= " SELECT $measurementUnit_serialNum, LAST_INSERT_ID(),";
     $sql_query .= " (SELECT employee_id FROM measurementUnit_users WHERE measurementUnit_serialNum = $measurementUnit_serialNum),";
     $sql_query .= " $acousticShocks,";
     $sql_query .= " ((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss),"; //calculation of current_dosis
     $sql_query .= " (((SELECT current_dosis FROM measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-$dosisLoss)*($spl_slow_setting*$spl_length/$dosisLoss));"; //calculation of estimated hoursleft
-
-/*
-INSERT INTO noise_monitoring.measurements (
-measurementUnit_serialNum,
-soundPressureLevelRaw_id,
-employee_id,
-acousticShocks,
-current_dosis,
-estimated_hoursleft)
-SELECT
-1,
-LAST_INSERT_ID(),
-(SELECT employee_id FROM noise_monitoring.measurementUnit_users WHERE measurementUnit_serialNum = 1),
-2,
-((SELECT current_dosis FROM noise_monitoring.measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-0.5),
-(((SELECT current_dosis FROM noise_monitoring.measurements WHERE current_dosis IS NOT NULL ORDER BY id DESC LIMIT 1)-0.5)*(1*4/0.5));
-*/
 
     // check for success
     if ($conn->multi_query($sql_query) == TRUE) {
