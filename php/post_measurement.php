@@ -12,7 +12,7 @@ $dosisLoss = isset($_POST["dosisLoss"]) ? $_POST["dosisLoss"] : 0;
 $spl_length = isset($_POST["spl_length"]) ? $_POST["spl_length"] : 0;
 
 //contstants
-$spl_slow_setting = 1; // slow mode
+$spl_slow_setting = 1/3600; // value of 1 second in hours
 
 // declaring array
 $spl_array = array();
