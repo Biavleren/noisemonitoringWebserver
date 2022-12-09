@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
+
+<head>
+  <style>
     body {
       background-image: url('rtx_background.png');
       background-size: 100%;
+      max-width: 1000px;
+      margin: auto;
+
     }
-    </style>
-    </head>
+  </style>
+</head>
+
 <body>
 
 
-<h1>Welcome to Noise monitoring database interface</h1>
+  <h1>Welcome to Noise monitoring database interface debugger</h1>
 
-<p>Down below you can insert measurement by clicking the button:</p>
-<p>Nu med oneliner15</p>
+  <p>Type in the desired values for measurementUnit_id, acousticShocks, dosisLoss, spl_lenth and SPL.</p>
+  <p><b>Press the button to send request!</b></p>
 
-<form method="post" action="/php/insertMeasurementHardCoded.php">
-  <input type="submit" name="button1"
-          class="button" value="Insert!" />
-</form>
+  <form method="post" action="/php/post_measurement.php">
+    <label for="measurement_id">SerialNumber: </label>
+    <input type="number" id="measurement_id" name="measurement_id"><br><br>
+
+    <label for="shock">Number of shocks: </label>
+    <input type="number" id="shock" name="shock"><br><br>
+
+    <label for="dosis">Dosisloss: </label>
+    <input type="text" step="0.01" id="dosis" name="dosis"><br><br>
+
+    <label for="spl_length">Length of SPL: </label>
+    <input type="number" id="shock" name="shock"><br><br>
+
+    <label for="splvalue1">SPL value1: </label>
+    <input type="number" step="0.1" id="splvalue1" name="splvalue1"><br>
+    <label for="splvalue2">SPL value2: </label>
+    <input type="number" step="0.1" id="splvalue2" name="splvalue2"><br>
+    <label for="splvalue3">SPL value3: </label>
+    <input type="number" step="0.1" id="splvalue3" name="splvalue3"><br><br>
+
+    <input type="submit" name="button1" class="button" value="SEND!" />
+
+  </form>
 
 </body>
+
 </html>
